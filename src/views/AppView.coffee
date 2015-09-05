@@ -11,6 +11,9 @@ class window.AppView extends Backbone.View
 
   initialize: ->
     @render()
+    @model.on 'tie', => @alert 'Game Tied'
+    @model.on 'playerWin', => @alert 'Player Wins'
+    @model.on 'dealerWin', => @alert 'Dealer Wins'
 
   render: ->
     @$el.children().detach()
@@ -18,3 +21,6 @@ class window.AppView extends Backbone.View
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
 
+  alert: (message) ->
+    alert(message)
+    return
