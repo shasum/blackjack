@@ -9,6 +9,8 @@ class window.AppView extends Backbone.View
     'click .hit-button': -> @model.get('playerHand').hit()
     'click .stand-button': -> @model.get('playerHand').stand()
 
+    #$ -> @model.get('playerHand').checkScore()
+
   initialize: ->
     @render()
     @model.on 'tie', => @alert 'Game Tied'

@@ -11,5 +11,7 @@ describe 'deck', ->
   describe 'hit', ->
     it 'should give the last card from the deck', ->
       assert.strictEqual deck.length, 50
-      assert.strictEqual deck.last(), hand.hit()
+      last = deck.last()
+      hand.hit()
+      assert.strictEqual last, hand.at(2)
       assert.strictEqual deck.length, 49
