@@ -3,9 +3,13 @@
 class window.App extends Backbone.Model
   initialize: ->
     @set 'deck', deck = new Deck()
-    @set 'playerHand', deck.dealPlayer()
-    @set 'dealerHand', deck.dealDealer()
+    @deal()
+    return
 
+  deal: ->
+    @set 'deck', new Deck() if @get('deck').length <= 13
+    @set 'playerHand', @get('deck').dealPlayer()
+    @set 'dealerHand', @get('deck').dealDealer()
     @get('playerHand').on 'dealerStart', =>
       @get('dealerHand').at(0).flip()
       if @get('playerHand').scores() > 21
@@ -14,9 +18,7 @@ class window.App extends Backbone.Model
         @get('dealerHand').checkScore()
 
     @get('dealerHand').on 'dealerStop', => @result()
-
     return
-
 
   result: ->
     playerScore = @get('playerHand').scores()
